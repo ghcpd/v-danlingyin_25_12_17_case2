@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "total_issues": 6,
+    "high": 0,
+    "medium": 4,
+    "low": 2
+  },
+  "details": [
+    {
+      "id": 1,
+      "file": "input.tsx",
+      "line_numbers": [53, 56],
+      "issue_type": "Bug",
+      "severity": "Medium",
+      "description": "Loading placeholders use fixed light colors (`bg-gray-300`) which become invisible or low-contrast in dark mode.",
+      "fix_explanation": "Make placeholder bar colors conditional on `darkMode` and reuse `cardClasses` so placeholders remain visible in both modes.",
+      "before": "<div className=\"h-4 bg-gray-300 rounded w-3/4 mb-2\" />",
+      "after": "<div className={`h-4 rounded w-3/4 mb-2 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`} />"
+    },
+    {
+      "id": 2,
+      "file": "input.tsx",
+      "line_numbers": [62, 63],
+      "issue_type": "Bug",
+      "severity": "Medium",
+      "description": "Metric label and value colors are not adjusted for dark mode; label uses `text-gray-500` which reduces contrast in dark mode.",
+      "fix_explanation": "Use conditional classes for label and value colors based on `darkMode` so text remains readable in both themes.",
+      "before": "<div className=\"text-sm text-gray-500 mb-2\">{m.label}</div>\n<div className=\"text-xl font-semibold\">{formatValue(m)}</div>",
+      "after": "<div className={`text-sm mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{m.label}</div>\n<div className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{formatValue(m)}</div>"
+    },
+    {
+      "id": 3,
+      "file": "input.tsx",
+      "line_numbers": [33, 34],
+      "issue_type": "UX",
+      "severity": "Medium",
+      "description": "Cards use `bg-white` in light mode which matches the page background, causing poor visual separation.",
+      "fix_explanation": "Introduce `cardClasses` with `bg-gray-50` (light) and `bg-gray-800` (dark) plus borders to create clear separation in both modes.",
+      "before": "const cardBg = darkMode ? \"bg-gray-800\" : \"bg-white\";",
+      "after": "const cardClasses = darkMode ? \"bg-gray-800 border border-gray-700\" : \"bg-gray-50 border border-gray-200\";"
+    },
+    {
+      "id": 4,
+      "file": "input.tsx",
+      "line_numbers": [60, 65],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "No empty-state view when metrics array is empty after loading — the grid is blank and provides no feedback.",
+      "fix_explanation": "Add a simple `No metrics available` empty state card that respects theme styling and is testable via `data-testid=\"empty-state\"`.",
+      "before": "metrics.map((m) => (...))",
+      "after": "metrics.length === 0 ? (<div data-testid=\"empty-state\">No metrics available</div>) : metrics.map((m) => (...))"
+    },
+    {
+      "id": 5,
+      "file": "input.tsx",
+      "line_numbers": [40, 48],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "Dark mode toggle lacks `aria-label` and strong focus styles making keyboard interaction less discoverable.",
+      "fix_explanation": "Add `aria-label` and improved focus ring (`focus:ring-2 focus:ring-indigo-500`) and persist preference to localStorage on toggle.",
+      "before": "<button ... className={... focus:outline-none focus:ring ...} onClick={() => setDarkMode(!darkMode)}>...",
+      "after": "<button ... aria-label={...} className={... focus:outline-none focus:ring-2 focus:ring-indigo-500 ...} onClick={() => { setDarkMode(!darkMode); localStorage.setItem('dashboard-dark', String(!darkMode)); }}>..."
+    },
+    {
+      "id": 6,
+      "file": "input.tsx",
+      "line_numbers": [61],
+      "issue_type": "Code Smell",
+      "severity": "Low",
+      "description": "Using `m.label` as the React key works for now but may break if labels are not unique.",
+      "fix_explanation": "Prefer a stable unique id when available; leave as-is but flag as a potential future improvement.",
+      "before": "<article key={m.label} ...>",
+      "after": "<article key={m.label} ...> (consider switching to a unique `id` property when available)"
+    }
+  ]
+}
