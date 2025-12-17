@@ -1,0 +1,87 @@
+{
+  "summary": {
+    "total_issues": 7,
+    "high": 1,
+    "medium": 4,
+    "low": 2
+  },
+  "details": [
+    {
+      "id": 1,
+      "file": "input.tsx",
+      "line_numbers": [23, 35],
+      "issue_type": "Bug",
+      "severity": "High",
+      "description": "Dark mode state is toggled but never applied to the UI. The container div always has 'bg-white text-black' regardless of the darkMode state.",
+      "fix_explanation": "Applied conditional className based on darkMode state. Updated container to use ternary operator for background and text colors with transition effect.",
+      "before": "<div className=\"w-screen h-screen bg-white text-black p-4\">",
+      "after": "<div className={`min-h-screen w-full p-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>"
+    },
+    {
+      "id": 2,
+      "file": "input.tsx",
+      "line_numbers": [23],
+      "issue_type": "UX",
+      "severity": "Medium",
+      "description": "Using 'w-screen h-screen' (fixed screen height) prevents responsive layout. Content cannot scroll and restricts vertical space.",
+      "fix_explanation": "Changed 'h-screen' to 'min-h-screen' to allow content to expand beyond viewport. Removed 'w-screen' in favor of 'w-full' for better responsiveness.",
+      "before": "<div className=\"w-screen h-screen bg-white text-black p-4\">",
+      "after": "<div className={`min-h-screen w-full p-4 ...`}>"
+    },
+    {
+      "id": 3,
+      "file": "input.tsx",
+      "line_numbers": [35],
+      "issue_type": "UX",
+      "severity": "Medium",
+      "description": "Grid columns are hardcoded to 3 ('grid-cols-3'), which doesn't adapt to mobile screens causing layout breaking.",
+      "fix_explanation": "Implemented responsive grid with Tailwind breakpoints: grid-cols-1 (mobile), sm:grid-cols-2 (tablet), lg:grid-cols-3 (desktop).",
+      "before": "<div className=\"grid grid-cols-3 gap-4\">",
+      "after": "<div className=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4\">"
+    },
+    {
+      "id": 4,
+      "file": "input.tsx",
+      "line_numbers": [37],
+      "issue_type": "Code Smell",
+      "severity": "Medium",
+      "description": "Using array index as React key (key={i}) is an anti-pattern that can cause rendering issues if metrics are reordered or updated.",
+      "fix_explanation": "Changed to use unique identifier based on metric data: key={`${m.label}-${m.value}`} for stable reference.",
+      "before": "{metrics.map((m, i) => (\n          <div key={i} className=\"border p-2\">",
+      "after": "{metrics.map((m) => (\n          <div key={`${m.label}-${m.value}`} className={...}>"
+    },
+    {
+      "id": 5,
+      "file": "input.tsx",
+      "line_numbers": [15, 20],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "No loading state feedback. User doesn't know data is being loaded during the 1-second delay.",
+      "fix_explanation": "Added 'isLoading' state. Display loading message while data loads. Hide metrics grid until data arrives. Show loading UI with conditional rendering.",
+      "before": "// No loading indicator\n{metrics.map((m, i) => (...",
+      "after": "const [isLoading, setIsLoading] = useState(true);\n...\nsetIsLoading(false);\n...\n{isLoading ? (\n  <div className=\"text-center py-8\">\n    <p className=\"text-lg\">Loading metrics...</p>\n  </div>\n) : (\n  <div className=\"grid...\">"
+    },
+    {
+      "id": 6,
+      "file": "input.tsx",
+      "line_numbers": [27, 32],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "Button has minimal styling and no visual feedback (no hover states, poor contrast, minimal padding).",
+      "fix_explanation": "Enhanced button with proper colors, hover states, rounded corners, increased padding, font weight, and dark mode aware colors.",
+      "before": "<button\n        className=\"mb-4 px-2 py-1 border\"\n        onClick={() => setDarkMode(!darkMode)}\n      >\n        Toggle Dark Mode\n      </button>",
+      "after": "<button\n        className={`mb-6 px-4 py-2 rounded font-medium transition-colors ${\n          darkMode\n            ? \"bg-yellow-500 text-black hover:bg-yellow-600\"\n            : \"bg-blue-500 text-white hover:bg-blue-600\"\n        }`}\n        onClick={() => setDarkMode(!darkMode)}\n      >\n        Toggle Dark Mode\n      </button>"
+    },
+    {
+      "id": 7,
+      "file": "input.tsx",
+      "line_numbers": [38, 41],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "Metric cards lack proper styling and visual hierarchy. Missing padding, rounded corners, and dark mode support.",
+      "fix_explanation": "Added rounded corners, improved padding, conditional background colors for dark mode, borders that adapt to theme, and formatted number display.",
+      "before": "<div key={i} className=\"border p-2\">\n            <div>{m.label}</div>\n            <div>{m.value}</div>\n          </div>",
+      "after": "<div\n              key={`${m.label}-${m.value}`}\n              className={`rounded-lg p-4 transition-colors ${\n                darkMode\n                  ? \"bg-gray-800 border border-gray-700\"\n                  : \"bg-gray-100 border border-gray-300\"\n              }`}\n            >\n              <div className=\"text-sm font-semibold opacity-75\">{m.label}</div>\n              <div className=\"text-3xl font-bold mt-2\">{m.value.toLocaleString()}</div>\n            </div>"
+    }
+  ]
+}
