@@ -1,0 +1,99 @@
+{
+  "summary": {
+    "total_issues": 8,
+    "high": 1,
+    "medium": 5,
+    "low": 2
+  },
+  "details": [
+    {
+      "id": 1,
+      "file": "input.tsx",
+      "line_numbers": [20,21],
+      "issue_type": "Bug",
+      "severity": "High",
+      "description": "Dark mode state is not used in the UI. The outer container uses static bg-white/text-black classes so toggling darkMode has no visual effect.",
+      "fix_explanation": "Apply conditional Tailwind classes based on darkMode state to the root container so toggling updates the theme.",
+      "before": "<div className=\"w-screen h-screen bg-white text-black p-4\">",
+      "after": "<div className={`w-full min-h-screen p-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`} >"
+    },
+    {
+      "id": 2,
+      "file": "input.tsx",
+      "line_numbers": [23,28],
+      "issue_type": "Bug",
+      "severity": "Medium",
+      "description": "Toggle button label is static (‘Toggle Dark Mode’) and does not reflect UI state, which is confusing.",
+      "fix_explanation": "Change button text to reflect current mode (e.g., Switch to Light Mode / Switch to Dark Mode).
+Ensure the button has a proper accessible label.",
+      "before": "<button\n    className=\"mb-4 px-2 py-1 border\"\n    onClick={() => setDarkMode(!darkMode)}\n>\n  Toggle Dark Mode\n</button>",
+      "after": "<button\n  type=\"button\"\n  className=\"mb-4 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200\"\n  aria-pressed={darkMode}\n  onClick={() => setDarkMode(!darkMode)}\n>\n  {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}\n</button>"
+    },
+    {
+      "id": 3,
+      "file": "input.tsx",
+      "line_numbers": [12,17],
+      "issue_type": "Bug",
+      "severity": "Medium",
+      "description": "No loading indicator – metrics are empty initially and the UI shows blank content until set after timeout.",
+      "fix_explanation": "Add isLoading state and display a loading indicator while metrics are being fetched.",
+      "before": "const [metrics, setMetrics] = useState<Metric[]>([]);\nconst [darkMode, setDarkMode] = useState(false);",
+      "after": "const [metrics, setMetrics] = useState<Metric[]>([]);\nconst [darkMode, setDarkMode] = useState(false);\nconst [isLoading, setIsLoading] = useState(true);"
+    },
+    {
+      "id": 4,
+      "file": "input.tsx",
+      "line_numbers": [30,32],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "Grid layout uses fixed columns (grid-cols-3) and is not responsive on small screens.",
+      "fix_explanation": "Use responsive Tailwind classes (sm:grid-cols-2 md:grid-cols-3) so layout adapts across breakpoints.",
+      "before": "<div className=\"grid grid-cols-3 gap-4\">",
+      "after": "<div role=\"list\" className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4\">"
+    },
+    {
+      "id": 5,
+      "file": "input.tsx",
+      "line_numbers": [31,36],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "List items do not have semantic roles or accessible styles; screen readers benefit from role="list" and role="listitem".",
+      "fix_explanation": "Add role attributes and optional styling like rounded corners/shadow for better accessibility and perception.",
+      "before": "{metrics.map((m, i) => (\n  <div key={i} className=\"border p-2\">\n    <div>{m.label}</div>\n    <div>{m.value}</div>\n  </div>\n))}",
+      "after": "{metrics.map((m, i) => (\n  <div key={i} role=\"listitem\" className=\"border p-2 rounded shadow-sm\">\n    <div className=\"font-semibold\">{m.label}</div>\n    <div>{new Intl.NumberFormat().format(m.value)}</div>\n  </div>\n))}"
+    },
+    {
+      "id": 6,
+      "file": "input.tsx",
+      "line_numbers": [23,28],
+      "issue_type": "Code Smell",
+      "severity": "Low",
+      "description": "Button lacks accessible attributes (type and aria-pressed) and focus ring styling.",
+      "fix_explanation": "Add type="button", aria-pressed attribute tied to state, and focus ring classes.",
+      "before": "<button\n  className=\"mb-4 px-2 py-1 border\"\n  onClick={() => setDarkMode(!darkMode)}\n>\n  Toggle Dark Mode\n</button>",
+      "after": "<button\n  type=\"button\"\n  className=\"mb-4 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200\"\n  aria-pressed={darkMode}\n  onClick={() => setDarkMode(!darkMode)}\n>\n  {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}\n</button>"
+    },
+    {
+      "id": 7,
+      "file": "input.tsx",
+      "line_numbers": [20,21],
+      "issue_type": "Visual",
+      "severity": "Low",
+      "description": "Container uses w-screen h-screen which can cause overflow on mobile and miss min-height semantics.",
+      "fix_explanation": "Use w-full min-h-screen so the container fills available space without forcing layout issues.",
+      "before": "<div className=\"w-screen h-screen bg-white text-black p-4\">",
+      "after": "<div className={`w-full min-h-screen p-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`} >"
+    },
+    {
+      "id": 8,
+      "file": "input.tsx",
+      "line_numbers": [34,35],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "Values are rendered as raw numbers without formatting, making large numbers hard to read.",
+      "fix_explanation": "Use Intl.NumberFormat for locale-aware formatting.",
+      "before": "<div>{m.value}</div>",
+      "after": "<div>{new Intl.NumberFormat().format(m.value)}</div>"
+    }
+  ]
+}
