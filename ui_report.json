@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "total_issues": 5,
+    "high": 0,
+    "medium": 4,
+    "low": 1
+  },
+  "details": [
+    {
+      "id": 1,
+      "file": "input.tsx",
+      "line_numbers": [66, 66],
+      "issue_type": "Bug",
+      "severity": "Medium",
+      "description": "Metric label uses a single static class 'text-gray-500' which has poor contrast in dark mode (labels become hard to read on dark backgrounds).",
+      "fix_explanation": "Apply conditional text color depending on dark mode so labels are readable in both themes (e.g. text-gray-300 in dark, text-gray-500 in light).",
+      "before": "<div className=\"text-sm text-gray-500 mb-2\">{m.label}</div>",
+      "after": "<div className={`${darkMode ? \"text-gray-300\" : \"text-gray-500\"} text-sm mb-2`}>{m.label}</div>"
+    },
+    {
+      "id": 2,
+      "file": "input.tsx",
+      "line_numbers": [41, 45],
+      "issue_type": "UX",
+      "severity": "Low",
+      "description": "Toggle button used 'focus:ring' without ring width/color and light mode did not explicitly set a border color, causing inconsistent focus styling and an overly-strong border in light mode.",
+      "fix_explanation": "Add focus:ring-2 and focus:ring-offset-2 and explicit border colors for each theme; choose accessible focus ring colors per theme.",
+      "before": "className={`mb-4 px-3 py-1 border rounded focus:outline-none focus:ring ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black'}`},",
+      "after": "className={`px-3 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-offset-2 ${darkMode ? 'bg-gray-700 text-white border-gray-600 focus:ring-gray-500' : 'bg-white text-black border-gray-200 focus:ring-indigo-300'}`},"
+    },
+    {
+      "id": 3,
+      "file": "input.tsx",
+      "line_numbers": [10, 45],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "Dark mode preference isn't persisted - toggling dark mode resets on reload.",
+      "fix_explanation": "Persist dark mode preference to localStorage (read on mount, save on change) so the user's choice remains across sessions.",
+      "before": "const [darkMode, setDarkMode] = useState(false); ... onClick={() => setDarkMode(!darkMode)}",
+      "after": "useEffect/read and write to localStorage around darkMode so preference persists; toggle uses setDarkMode(s => !s)"
+    },
+    {
+      "id": 4,
+      "file": "input.tsx",
+      "line_numbers": [51, 70],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "No empty-state when metrics array is empty (after loading completes but there are no metrics).",
+      "fix_explanation": "Add an explicit 'No metrics available' message when metrics.length === 0 and not loading. Also add a small 'Refresh' button to trigger a reload of metrics for better UX.",
+      "before": "{loading ? ( ... ) : ( <div className=\"grid ...\">{metrics.map(...)} )}",
+      "after": "Handle three states: loading, empty (No metrics available), and metrics grid. Added Refresh button to header."
+    },
+    {
+      "id": 5,
+      "file": "input.tsx",
+      "line_numbers": [59, 59],
+      "issue_type": "Code Smell",
+      "severity": "Low",
+      "description": "Using metric label alone as React key can lead to collisions if labels repeat.",
+      "fix_explanation": "Use a stable unique key by combining label with index (e.g., `${m.label}-${i}`) to avoid potential key collisions.",
+      "before": "key={m.label}",
+      "after": "key={`${m.label}-${i}`}`
+    }
+  ]
+}
