@@ -1,0 +1,52 @@
+[2025-12-17T05:14:05.487Z]
+file: input.tsx
+status: FAIL
+output:
+
+found was unexpected at this time.
+
+
+[2025-12-17T05:17:47.500Z]
+file: input.tsx
+status: FAIL
+output:
+FAIL: missing composite key pattern m.label-...
+
+found was unexpected at this time.
+
+
+[2025-12-17T05:18:29.468Z]
+file: input.tsx
+status: FAIL
+output:
+FAIL: missing composite key pattern m.label-...
+
+found was unexpected at this time.
+
+
+[2025-12-17T05:19:06.160Z]
+file: input.tsx
+status: FAIL
+output:
+FAIL: missing role=main on root container
+FAIL: missing composite key pattern m.label-...
+
+found was unexpected at this time.
+
+
+[2025-12-17T05:19:54.281Z]
+file: input.tsx
+status: FAIL
+detected_issues:
+missing composite key using label and value
+output:
+See above
+
+[2025-12-17T05:21:03.535Z]
+file: input.tsx
+status: PASS
+detected_issues:
+none
+output:
+See above
+
