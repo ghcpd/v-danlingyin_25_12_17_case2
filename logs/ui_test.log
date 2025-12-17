@@ -1,0 +1,19 @@
+[2025-12-17T05:15:23.165Z] Running UI tests on Windows - file: input.tsx
+[2025-12-17T05:15:23.319Z] Status: FAIL
+errorCode=255 stdout:
+Running UI validation tests against input.tsx
+
+stderr:
+. was unexpected at this time.
+
+
+[2025-12-17T05:26:58.385Z] Running UI tests on Windows - file: input.tsx
+[2025-12-17T05:26:58.580Z] Status: PASS
+stdout:
+Running UI validation tests against input.tsx
+[OK] Label class is conditional or updated
+[OK] Keys are not simple label (unique/enhanced).
+
+RESULT: PASS
+
+
