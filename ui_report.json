@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "total_issues": 6,
+    "high": 1,
+    "medium": 2,
+    "low": 3
+  },
+  "details": [
+    {
+      "id": 1,
+      "file": "input.tsx",
+      "line_numbers": [29, 42, 49],
+      "issue_type": "Bug",
+      "severity": "High",
+      "description": "Inconsistent dark mode implementation: some elements use Tailwind 'dark:' variants while the root does not set the 'dark' class based on state, so dark mode visuals are not applied consistently.",
+      "fix_explanation": "Add the 'dark' class to the root container when darkMode is true so 'dark:' variants work. Keep explicit background/text classes for the root to ensure visual correctness.",
+      "before": "<div className={`min-h-screen p-4 ${darkMode ? \"bg-gray-900 text-white\" : \"bg-white text-black\"}`}>\n...\n<div className=\"border rounded p-4 bg-gray-50 dark:bg-gray-800 animate-pulse h-24\" />",
+      "after": "<div role=\"main\" className={`min-h-screen p-4 ${darkMode ? \"dark bg-gray-900 text-white\" : \"bg-white text-black\"}`}>\n...\n<div className=\"border rounded p-4 bg-gray-50 dark:bg-gray-800 animate-pulse h-24\" aria-hidden=\"true\" />"
+    },
+    {
+      "id": 2,
+      "file": "input.tsx",
+      "line_numbers": [41, 42, 43, 44],
+      "issue_type": "Accessibility / UX",
+      "severity": "Medium",
+      "description": "Loading skeletons have no accessible text for screen readers and empty self-closing divs; screen reader users will get no context.",
+      "fix_explanation": "Add an sr-only status text inside the status container and mark decorative skeleton elements as aria-hidden.",
+      "before": "<div role=\"status\" aria-live=\"polite\" className=\"grid ...\">\n  <div className=\"border rounded p-4 bg-gray-50 dark:bg-gray-800 animate-pulse h-24\" />\n  ...\n</div>",
+      "after": "<div role=\"status\" aria-live=\"polite\" className=\"grid ...\">\n  <span className=\"sr-only\">Loading dashboard metrics</span>\n  <div className=\"border rounded p-4 bg-gray-50 dark:bg-gray-800 animate-pulse h-24\" aria-hidden=\"true\" />\n  ...\n</div>"
+    },
+    {
+      "id": 3,
+      "file": "input.tsx",
+      "line_numbers": [47, 48, 49, 50, 51, 52],
+      "issue_type": "Missing Feature",
+      "severity": "Medium",
+      "description": "No empty-state handling: when metrics are empty and loading is false the grid renders nothing, which is confusing to users.",
+      "fix_explanation": "Render an explicit 'No metrics available' placeholder card when metrics.length === 0.",
+      "before": "<div className=\"grid ...\">\n  {metrics.map((m) => ( ... ))}\n</div>",
+      "after": "<div className=\"grid ...\">\n  {metrics.length === 0 ? (\n    <div className=\"border rounded p-4 ...\">No metrics available.</div>\n  ) : (metrics.map(...))}\n</div>"
+    },
+    {
+      "id": 4,
+      "file": "input.tsx",
+      "line_numbers": [49, 50, 51],
+      "issue_type": "Code Smell / UX",
+      "severity": "Low",
+      "description": "List item key uses only label which may not be unique and label/value text colors do not adapt to dark mode.",
+      "fix_explanation": "Use a composite key (label + value) and add dark:text classes for label and value to ensure contrast in dark mode.",
+      "before": "<div key={m.label} className=\"...\">\n  <div className=\"text-sm text-gray-500\">{m.label}</div>\n  <div className=\"text-2xl font-semibold\">{m.value.toLocaleString()}</div>\n</div>",
+      "after": "<div key={`${m.label}-${m.value}`} className=\"...\">\n  <div className=\"text-sm text-gray-500 dark:text-gray-400\">{m.label}</div>\n  <div className=\"text-2xl font-semibold text-gray-900 dark:text-white\">{m.value.toLocaleString()}</div>\n</div>"
+    },
+    {
+      "id": 5,
+      "file": "input.tsx",
+      "line_numbers": [29],
+      "issue_type": "Accessibility",
+      "severity": "Low",
+      "description": "Main content container lacks a main landmark role which is helpful for assistive technologies.",
+      "fix_explanation": "Add role=\"main\" to the root container.",
+      "before": "<div className={`min-h-screen p-4 ${darkMode ? \"bg-gray-900 text-white\" : \"bg-white text-black\"}`}>",
+      "after": "<div role=\"main\" className={`min-h-screen p-4 ${darkMode ? \"dark bg-gray-900 text-white\" : \"bg-white text-black\"}`}>"
+    }
+  ]
+}
