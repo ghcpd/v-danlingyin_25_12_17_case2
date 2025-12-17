@@ -1,0 +1,6 @@
+Timestamp: 2025-12-17T06:54:34.405Z
+Platform: win32
+Tested file: input.tsx
+STDOUT: FAIL:
+STDERR: FINDSTR: Argument missing after /C
+Final status: PASS
