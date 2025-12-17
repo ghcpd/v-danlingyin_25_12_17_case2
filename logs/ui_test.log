@@ -1,0 +1,43 @@
+[2025-12-17T05:46:31.376Z] ============================================================
+[2025-12-17T05:46:31.379Z] UI Test Runner - Auto Executor
+[2025-12-17T05:46:31.380Z] ============================================================
+[2025-12-17T05:46:31.380Z] Detected OS: Windows
+[2025-12-17T05:46:31.380Z] Tested File: input.tsx
+[2025-12-17T05:46:31.380Z] Starting test execution...
+[2025-12-17T05:46:31.381Z] 
+[2025-12-17T05:46:31.381Z] Executing: run_test.bat
+[2025-12-17T05:46:31.699Z] ==========================================
+[2025-12-17T05:46:31.700Z] UI Test Suite - Dashboard Component
+[2025-12-17T05:46:31.701Z] ==========================================
+[2025-12-17T05:46:31.701Z] [TEST 1] Dark mode functionality is implemented
+[2025-12-17T05:46:31.704Z] ✓ PASS: Dark mode colors applied conditionally
+[2025-12-17T05:46:31.704Z] [TEST 2] Grid is responsive
+[2025-12-17T05:46:31.704Z] ✓ PASS: Responsive grid breakpoints present
+[2025-12-17T05:46:31.705Z] [TEST 3] Loading state is implemented
+[2025-12-17T05:46:31.705Z] ✓ PASS: Loading state feedback present
+[2025-12-17T05:46:31.707Z] [TEST 4] React keys are not array indices
+[2025-12-17T05:46:31.708Z] ✓ PASS: Unique keys based on data
+[2025-12-17T05:46:31.709Z] [TEST 5] Layout uses min-h-screen (not h-screen)
+[2025-12-17T05:46:31.711Z] ✓ PASS: Responsive height applied
+[2025-12-17T05:46:31.712Z] [TEST 6] Button has hover states
+[2025-12-17T05:46:31.713Z] ✓ PASS: Button has hover styles
+[2025-12-17T05:46:31.714Z] [TEST 7] Metric cards have proper styling
+[2025-12-17T05:46:31.715Z] ✓ PASS: Cards properly styled with rounded corners and formatted numbers
+[2025-12-17T05:46:31.716Z] [TEST 8] Backup file is intact
+[2025-12-17T05:46:31.718Z] ✓ PASS: Backup file exists
+[2025-12-17T05:46:31.719Z] [TEST 9] Report file generated
+[2025-12-17T05:46:31.721Z] ✓ PASS: UI report file exists
+[2025-12-17T05:46:31.724Z] ==========================================
+[2025-12-17T05:46:31.725Z] All tests passed ✓
+[2025-12-17T05:46:31.726Z] ==========================================
+[2025-12-17T05:46:31.728Z] 
+[2025-12-17T05:46:31.729Z] Issue Summary:
+[2025-12-17T05:46:31.731Z]   - Total Issues: 7
+[2025-12-17T05:46:31.732Z]   - High Severity: 1
+[2025-12-17T05:46:31.733Z]   - Medium Severity: 4
+[2025-12-17T05:46:31.735Z]   - Low Severity: 2
+[2025-12-17T05:46:31.736Z] 
+[2025-12-17T05:46:31.737Z] ============================================================
+[2025-12-17T05:46:31.738Z] Final Status: PASS ✓
+[2025-12-17T05:46:31.739Z] ============================================================
+[2025-12-17T05:46:31.740Z] All tests passed successfully!
